@@ -1,2 +1,2 @@
 language: go
-before_install: sh progress-bar.sh
+before_install: bash progress-bar.sh

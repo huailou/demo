@@ -1,10 +1,9 @@
-#!/bin/bash  
-i=0 
-while [ $i -lt 20 ]  
+#!/bin/sh  
+b='' 
+for ((i=0;$i<=100;i+=2))  
 do  
-       ((i++))  
-       echo -ne "=>\033[s"  
-       echo -ne "\033[40;50H"$((i*5*100/100))%"\033[u\033[1D"  
-   usleep 50000  
+        printf "progress:[%-50s]%d%%\r" $b $i  
+        sleep 0.1  
+        b=#$b  
 done  
 echo 

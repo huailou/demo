@@ -1,2 +1,2 @@
-language: golang
+language: go
 before_install: ls -a

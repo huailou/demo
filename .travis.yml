@@ -1,2 +1,2 @@
-language: go
-before_install: bash progress-bar.sh
+language: python
+before_install: pip install django

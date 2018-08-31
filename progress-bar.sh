@@ -1,19 +1,32 @@
-#!/bin/bash  
-COUNTER=0 
-_R=0 
-_C=`tput cols`  
-_PROCEC=`tput cols`  
-tput cup $_C $_R  
-printf "["  
-while [ $COUNTER -lt 100 ]  
-do  
-    COUNTER=`expr $COUNTER + 1`  
-    sleep 0.1  
-    printf "=>"  
-    _R=`expr $_R + 1`  
-    _C=`expr $_C + 1`  
-    tput cup $_PROCEC 101  
-    printf "]%d%%" $COUNTER  
-    tput cup $_C $_R  
-done  
-printf "\n"  
+#!/bin/bash
+# 1. Create ProgressBar function
+# 1.1 Input is currentState($1) and totalState($2)
+function ProgressBar {
+# Process data
+    let _progress=(${1}*100/${2}*100)/100
+    let _done=(${_progress}*4)/10
+    let _left=40-$_done
+# Build progressbar string lengths
+    _fill=$(printf "%${_done}s")
+    _empty=$(printf "%${_left}s")
+
+# 1.2 Build progressbar strings and print the ProgressBar line
+# 1.2.1 Output example:                           
+# 1.2.1.1 Progress : [########################################] 100%
+printf "\rProgress : [${_fill// /\#}${_empty// /-}] ${_progress}%%"
+
+}
+
+# Variables
+_start=1
+
+# This accounts as the "totalState" variable for the ProgressBar function
+_end=100
+
+# Proof of concept
+for number in $(seq ${_start} ${_end})
+do
+    sleep 0.1
+    ProgressBar ${number} ${_end}
+done
+printf '\nFinished!\n'

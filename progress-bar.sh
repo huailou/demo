@@ -1,9 +1,19 @@
-#!/bin/sh  
-b='' 
-for ((i=0;$i<=100;i+=2))  
+#!/bin/bash  
+COUNTER=0 
+_R=0 
+_C=`tput cols`  
+_PROCEC=`tput cols`  
+tput cup $_C $_R  
+printf "["  
+while [ $COUNTER -lt 100 ]  
 do  
-        printf "progress:[%-50s]%d%%\r" $b $i  
-        sleep 0.1  
-        b=#$b  
+    COUNTER=`expr $COUNTER + 1`  
+    sleep 0.1  
+    printf "=>"  
+    _R=`expr $_R + 1`  
+    _C=`expr $_C + 1`  
+    tput cup $_PROCEC 101  
+    printf "]%d%%" $COUNTER  
+    tput cup $_C $_R  
 done  
-echo 
+printf "\n"  
